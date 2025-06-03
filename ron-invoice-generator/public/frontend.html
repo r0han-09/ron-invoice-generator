@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RON Invoice Generator</title>
+  <script>
+    async function generateInvoice() {
+      const orderId = document.getElementById('orderId').value;
+      const response = await fetch(`/api/invoice/${orderId}`);
+      const blob = await response.blob();
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = `invoice-${orderId}.pdf`;
+      link.click();
+    }
+  </script>
+</head>
+<body style="font-family: Arial; padding: 40px;">
+  <h1>RON Invoice Generator</h1>
+  <input type="text" id="orderId" placeholder="Enter Order ID" />
+  <button onclick="generateInvoice()">Download Invoice</button>
+</body>
+</html>
