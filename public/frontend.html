@@ -20,5 +20,17 @@
   <h1>RON Invoice Generator</h1>
   <input type="text" id="orderId" placeholder="Enter Order ID" />
   <button onclick="generateInvoice()">Download Invoice</button>
+  
+  <script>
+    async function generateInvoice() {
+      const orderId = document.getElementById('orderId').value;
+      const response = await fetch(`/api/invoice/${orderId}`);
+      const blob = await response.blob();
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = `invoice-${orderId}.pdf`;
+      link.click();
+    }
+  </script>
 </body>
 </html>
