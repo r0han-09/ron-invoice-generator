@@ -1,3 +1,12 @@
+require('dotenv').config();
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
+const auth = require('./auth');
+
+
+
+
+
 const express = require('express');
 const cors = require('cors');
 const puppeteer = require('puppeteer');
@@ -74,5 +83,11 @@ app.get('/api/invoice/:id', async (req, res) => {
   res.contentType("application/pdf");
   res.send(pdf);
 });
+
+app.use(cookieParser());
+app.use(session({ secret: 'ron-secret', resave: false, saveUninitialized: true }));
+
+app.get('/auth', auth.startAuth);
+app.get('/auth/callback', auth.authCallback);
 
 app.listen(port, () => console.log(`RON Invoice Generator running at http://localhost:${port}`));
