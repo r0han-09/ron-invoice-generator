@@ -90,4 +90,8 @@ app.use(session({ secret: 'ron-secret', resave: false, saveUninitialized: true }
 app.get('/auth', auth.startAuth);
 app.get('/auth/callback', auth.authCallback);
 
+app.get('/', (req, res) => {
+  res.redirect('/frontend.html');
+});
+
 app.listen(port, () => console.log(`RON Invoice Generator running at http://localhost:${port}`));
