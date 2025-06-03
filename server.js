@@ -63,6 +63,10 @@ app.get('/api/invoice/:id', async (req, res) => {
   }
 });
 
+app.get('/', (req, res) => {
+  res.redirect('/frontend.html');
+});
+
 app.listen(port, () => {
   console.log(`RON Invoice Generator running on port ${port}`);
 });
